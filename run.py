@@ -118,3 +118,37 @@ while True:
                     elif used_item == "카페라떼":
                         player["HP"] += 5
                     print(f"{used_item}을(를) 사용했습니다! HP가 회복되었습니다.")
+
+    if move == "임무":
+        if current_location == "정문":
+            print("[정문 알림] 학교 소식은 독수리상에서 알아보세요!")
+            player.setdefault("임무목록", []).append("독수리상 방문하기") 
+        
+        elif current_location == "독수리상":
+            print("--- 독수리상 임무 받기 ---")
+            print("1) 교내 부조리 수사 (본관 보고)")
+            print("2) 교내 위생사건 수사 (세브란스 보고)")
+            q_choice = input("임무 번호를 입력하세요: ")
+            if q_choice == "1":
+                player.setdefault("임무목록", []).append("교내 부조리 수사") 
+                print("부조리 수사 임무를 받았습니다.")
+            elif q_choice == "2":
+                player.setdefault("임무목록", []).append("교내 위생사건 수사") 
+                print("위생사건 수사 임무를 받았습니다.")
+        
+        elif current_location == "이윤재관":
+            if "교내 부조리 수사" in player.get("임무목록", []) or "교내 위생사건 수사" in player.get("임무목록", []):
+                print("임무를 모두 완료하셨나요? 본관이나 세브란스에서 먼저 보고하세요.")
+            else:
+                print("축하합니다! 수업에 도착했습니다. 게임 종료!") 
+                break
+        else:
+            print("이곳에는 진행할 임무가 없습니다.")
+
+    elif move == "상태":
+        print(f"--- 현재 상태 ---")
+        print(f"계좌 잔액: {player['잔액']}원") 
+        print(f"HP: {player['HP']}") 
+        print(f"현재 위치: {current_location}") 
+        print(f"동서남북: 주변 확인 가능") 
+
